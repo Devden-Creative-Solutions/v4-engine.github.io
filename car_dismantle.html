@@ -189,11 +189,12 @@
                 // BABYLON.SceneLoader.ImportMesh("", "https://gokulstsk.github.io/Models.github.io/MODEL/GLB/car/source/", "Buick-Riviera.glb", scene, function(newMeshes) {
                 var engine =BABYLON.SceneLoader.ImportMesh("", "https://gokulstsk.github.io/Models.github.io/MODEL/GLB/", "animated_engine_v8.glb", scene, function(newMeshes) {
                     // var piston =BABYLON.SceneLoader.ImportMesh("", "https://gokulstsk.github.io/Models.github.io/MODEL/GLB/", "piston_withanim.glb",scene,function(piston_mesh){
-                    // newMeshes[0].position.z=-2;
+                                        
+                    newMeshes[0].scaling= new BABYLON.Vector3(5,5,5);
+                    newMeshes[0].position.z=-10;
                     for(let i=0;i<newMeshes.length;i++){
                         // var scull=newMeshes[i];
                         camera.target = newMeshes[i];
-                        newMeshes[0].scaling= new BABYLON.Vector3(8,8,8);
                         piston_mesh[0].scaling= new BABYLON.Vector3(0.3,0.3,0.3);
                         piston_mesh[0].position.X=10; 
                         // newMeshes[0].rotation=new BABYLON.Vector3(0.0,0.0,0.0);
@@ -218,31 +219,14 @@
 
                 });
                 
-
-
-
-
-
-
-
-
-                
-            }); 
-        // });
-            
-
-     
-
-
-
-
-
-                const xr =  scene.createDefaultXRExperienceAsync({
-                    // ask for an ar-session
-                    uiOptions: {
-                    sessionMode: "immersive-ar",
-                    },
-                });
+   
+            });            
+                // const xr =  scene.createDefaultXRExperienceAsync({
+                //     // ask for an ar-session
+                //     uiOptions: {
+                //     sessionMode: "immersive-ar",
+                //     },
+                // });
                 return scene;
             };
                             window.initFunction = async function() {
