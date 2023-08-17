@@ -455,24 +455,49 @@
 
                 });
             
-                var advancedTexture = BABYLON.GUI.AdvancedDynamicTexture.CreateFullscreenUI("UI");
+                
+            }); 
+            var advancedTexture = BABYLON.GUI.AdvancedDynamicTexture.CreateFullscreenUI("UI");
                 var vrbtn = BABYLON.GUI.Button.CreateSimpleButton("but1", "VR");
-                arvrpanel.addControl(vrbtn);
+                // arvrpanel.addControl(vrbtn);
                 vrbtn.width = "50px";
                 vrbtn.height = "40px";
                 vrbtn.color = "white";
                 vrbtn.background = "red";
                 vrbtn.paddingTop = "5px";
                 vrbtn.cornerRadius = 20;
-                // advancedTexture.addControl(vrbtn); 
-                // vrbtn.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_LEFT;
+                advancedTexture.addControl(vrbtn); 
+                vrbtn.verticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP;
                 vrbtn.onPointerUpObservable.add(function(){
                     
+                    var model =BABYLON.SceneLoader.ImportMesh("", "https://gokulstsk.github.io/Models.github.io/MODEL/GLB/", "car_v8_engine_anim.glb", scene, function(newMeshes) {
+                        var assemble=scene.getAnimationGroupByName("assemble_anim");
+                        camera.target=newMeshes[0];
+                        newMeshes[0].position.y=15;
+                        newMeshes[0].scaling=new BABYLON.Vector3(20,20,20);
+                    
 
-
-                    var ground = BABYLON.MeshBuilder.CreateGround("ground", {width: 1000, height: 1000}, scene);
+                var ground = BABYLON.MeshBuilder.CreateGround("ground", {width: 1000, height: 1000}, scene);
                 ground.collisionsEnabled = true;
                 ground.checkCollisions = true;
+                var button1 = BABYLON.GUI.Button.CreateSimpleButton("but3", "Assemble");
+                    button1.paddingTop = "10px";
+                    button1.width = "100px";
+                    button1.height = "50px";
+                    button1.color = "white";
+                    button1.verticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP;
+                    button1.horizontalAlignment=BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_LEFT;
+                    var advancedTexture = BABYLON.GUI.AdvancedDynamicTexture.CreateFullscreenUI("UI");
+                    advancedTexture.addControl(button1); 
+                    
+                    button1.onPointerDownObservable.add(()=> {
+                        
+                        assemble.start(true,1.0, assemble.from,assemble.to,false);
+                        assemble.loopAnimation=false;
+                        // if (assemble) scene.beginAnimation(powerengine, assemble.from, assemble.to, true);
+                    });
+                    
+
 
 
                 try {
@@ -508,9 +533,7 @@
                 }
 
                 });
-            }); 
-
-
+            });
 
                
                 return scene;
