@@ -215,7 +215,7 @@
                         camera.target = newMeshes[0];
                         newMeshes[0].scaling= new BABYLON.Vector3(20,20,20); 
                         // newMeshes[0]=new BABYLON.Vector3(-30,0,-30);
-                        newMeshes[0].position.x=-500;
+                        newMeshes[0].position.x=500;
                         // piston_mesh[0].scaling= new BABYLON.Vector3(0.3,0.3,0.3);
                         // piston_mesh[0].position.X=10; 
 
@@ -281,15 +281,16 @@
                     
                     
                 });
+                button1.onPointerUpObservable.add(()=>{
+                    button1.background = "green";
+
+                });
                 UiPanel.addControl(button1);
-                assemblebtn();
-                function assemblebtn(){
                     var button1 = BABYLON.GUI.Button.CreateSimpleButton("but3", "Assemble");
                     button1.paddingTop = "10px";
                     button1.width = "100px";
                     button1.height = "50px";
                     button1.color = "white";
-                    button1.background = "green";
                     button1.onPointerDownObservable.add(()=> {
                         dismantle.stop();
                         assemble.start(true,1.0, assemble.from,assemble.to,false);
@@ -297,7 +298,7 @@
                         // if (assemble) scene.beginAnimation(powerengine, assemble.from, assemble.to, true);
                     });
                     UiPanel.addControl(button1);
-                }
+                
                 
             
             var advancedTexture = BABYLON.GUI.AdvancedDynamicTexture.CreateFullscreenUI("UI");
