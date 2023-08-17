@@ -270,7 +270,7 @@
                     console.log('play walk');
                     assemble.stop();
                     dismantle.start(true, 1.0, dismantle.from, dismantle.to, false);
-                    dismantle.stop();
+                    
                     // if (dismantle) {
                     //     scene.beginAnimation(powerengine, dismantle.from, dismantle.to, true);
                     // assemblebtn();}
@@ -291,7 +291,7 @@
                     button1.onPointerDownObservable.add(()=> {
                         dismantle.stop();
                         assemble.start(true,1.0, assemble.from,assemble.to,false);
-                        assemble.loopAnimation=false;
+                        // assemble.loopAnimation=false;
                         // if (assemble) scene.beginAnimation(powerengine, assemble.from, assemble.to, true);
                     });
                     UiPanel.addControl(button1);
@@ -310,7 +310,7 @@
                 // arbtn.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_LEFT;
                 arbtn.onPointerUpObservable.add(function(){
                         newMeshes[0].scaling= new BABYLON.Vector3(3,3,3); 
-                        // newMeshes[0]=new BABYLON.Vector3(-30,0,-30);
+                        // newMeshes[0]=new BABYLON.Vector3(60,0,-30);
                         const xr =  scene.createDefaultXRExperienceAsync({
                         // ask for an ar-session
                         uiOptions: {
