@@ -221,7 +221,7 @@
                         camera.target = newMeshes[0];
                         newMeshes[0].scaling= new BABYLON.Vector3(20,20,20); 
                         // newMeshes[0]=new BABYLON.Vector3(-30,0,-30);
-                        newMeshes[0].position.x=250;
+                        newMeshes[0].position.x=150;
                         // piston_mesh[0].scaling= new BABYLON.Vector3(0.3,0.3,0.3);
                         // piston_mesh[0].position.X=10; 
 
@@ -473,6 +473,15 @@
                         const xr =  scene.createDefaultXRExperienceAsync({
                         // ask for an ar-session
                     });
+
+                    engine.runRenderLoop(function () {
+                    if (xr.baseExperience.state == BABYLON.WebXRState.IN_XR) {
+                        const camPosition = xr.baseExperience.camera.globalPosition;
+                        const camRotation = xr.baseExperience.camera.rotationQuaternion;
+                        model.position = camPosition;
+                        model.rotationQuaternion = camRotation;
+                    }
+                });
 
                 });
             }); 
