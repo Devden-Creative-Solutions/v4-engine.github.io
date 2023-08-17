@@ -468,23 +468,41 @@
                     
 
 
+                    var ground = BABYLON.MeshBuilder.CreateGround("ground", {width: 1000, height: 1000}, scene);
+ground.collisionsEnabled = true;
+ground.checkCollisions = true;
 
 
                         const xr =  scene.createDefaultXRExperienceAsync({
                         // ask for an ar-session
+                        floorMeshes: [ground] 
+
                     });
 
-                    engine.runRenderLoop(function () {
-                    if (xr.baseExperience.state == BABYLON.WebXRState.IN_XR) {
-                        const camPosition = xr.baseExperience.camera.globalPosition;
-                        const camRotation = xr.baseExperience.camera.rotationQuaternion;
-                        model.position = camPosition;
-                        model.rotationQuaternion = camRotation;
-                    }
-                });
+                    const teleportation = xrHelper.teleportation; 
+
+teleportation.parabolicRayEnabled = true; 
+teleportation.parabolicCheckRadius = 10; 
+
+const featureManager = xrHelper.baseExperience.featuresManager;
+
+const xrHandFeature = featureManager.enableFeature(BABYLON.WebXRFeatureName.HAND_TRACKING, "latest", {
+xrInput: xrHelper.input,
+});
+
+xrHandFeature.onHandAddedObservable.add((newHand) => {
+    let handPoint = newHand.getJointMesh("index-finger-tip");
+
+    scene.onBeforeRenderObservable.add(() => {
+        if (sphere.intersectsMesh(handPoint)) {
+
+            sphere.isVisible = false;
+
+        }
+    });
 
                 });
-            }); 
+            }); });
 
 
 
