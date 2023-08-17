@@ -111,7 +111,7 @@
             }
            
             #renderCanvas {
-                width: 80%;
+                width: 100%;
                 height: 80%;
 
                 margin: 10px;
@@ -197,10 +197,10 @@
 
                 canvas.addEventListener("wheel", evt=>evt.preventDefault());
                 var engine =BABYLON.SceneLoader.ImportMesh("", "https://gokulstsk.github.io/Models.github.io/MODEL/GLB/", "car_v8_engine_anim.glb", scene, function(newMeshes) {
-                                        
-                    newMeshes[0].scaling= new BABYLON.Vector3(5,5,5);
-                    newMeshes[0].position.z=-10;
                     var powerengine=newMeshes[0]
+       
+                
+                    
 
                     var idlerun=scene.getAnimationGroupByName("idle_anim");
                     var dismantle=scene.getAnimationGroupByName("dismantle_anim");
@@ -210,7 +210,11 @@
 
                     for(let i=0;i<newMeshes.length;i++){
                         // var scull=newMeshes[i];
-                        camera.target = newMeshes[i];
+                        // newMeshes[0].scaling= new BABYLON.Vector3(6,6,6);                 
+                        // powerengine.position.z=10;
+                        camera.target = newMeshes[0];
+                        newMeshes[0].scaling= new BABYLON.Vector3(20,20,20); 
+                        newMeshes[0]=new BABYLON.Vector3(-30,0,-30);
                         // piston_mesh[0].scaling= new BABYLON.Vector3(0.3,0.3,0.3);
                         // piston_mesh[0].position.X=10; 
 
@@ -229,6 +233,16 @@
                 UiPanel.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_RIGHT;
                 UiPanel.verticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_CENTER;
                 advancedTexture.addControl(UiPanel);
+                
+                var arvrpanel = new BABYLON.GUI.StackPanel();
+                arvrpanel.width = "220px";
+                arvrpanel.fontSize = "14px";
+                arvrpanel.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_LEFT;
+                arvrpanel.verticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_CENTER;
+                advancedTexture.addControl(arvrpanel);
+
+
+
                 // ..
                 var button = BABYLON.GUI.Button.CreateSimpleButton("but1", "Idle");
                 button.paddingTop = "10px";
@@ -256,6 +270,7 @@
                     console.log('play walk');
                     assemble.stop();
                     dismantle.start(true, 1.0, dismantle.from, dismantle.to, false);
+                    dismantle.stop();
                     // if (dismantle) {
                     //     scene.beginAnimation(powerengine, dismantle.from, dismantle.to, true);
                     // assemblebtn();}
@@ -276,6 +291,7 @@
                     button1.onPointerDownObservable.add(()=> {
                         dismantle.stop();
                         assemble.start(true,1.0, assemble.from,assemble.to,false);
+                        assemble.loopAnimation=false;
                         // if (assemble) scene.beginAnimation(powerengine, assemble.from, assemble.to, true);
                     });
                     UiPanel.addControl(button1);
@@ -284,14 +300,17 @@
             
             var advancedTexture = BABYLON.GUI.AdvancedDynamicTexture.CreateFullscreenUI("UI");
                 var arbtn = BABYLON.GUI.Button.CreateSimpleButton("but1", "AR");
-                arbtn.width = 0.2;
+                arvrpanel.addControl(arbtn);
+                arbtn.width = "50px";
                 arbtn.height = "40px";
                 arbtn.color = "white";
                 arbtn.background = "red";
                 arbtn.cornerRadius = 20;
-                advancedTexture.addControl(arbtn); 
-                arbtn.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_LEFT;
+                // advancedTexture.addControl(arbtn); 
+                // arbtn.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_LEFT;
                 arbtn.onPointerUpObservable.add(function(){
+                        newMeshes[0].scaling= new BABYLON.Vector3(3,3,3); 
+                        // newMeshes[0]=new BABYLON.Vector3(-30,0,-30);
                         const xr =  scene.createDefaultXRExperienceAsync({
                         // ask for an ar-session
                         uiOptions: {
@@ -302,14 +321,15 @@
                 });
                 var advancedTexture = BABYLON.GUI.AdvancedDynamicTexture.CreateFullscreenUI("UI");
                 var vrbtn = BABYLON.GUI.Button.CreateSimpleButton("but1", "VR");
-                vrbtn.width = 0.2;
+                arvrpanel.addControl(vrbtn);
+                vrbtn.width = "50px";
                 vrbtn.height = "40px";
                 vrbtn.color = "white";
                 vrbtn.background = "red";
-                vrbtn.paddingTop = "40px";
+                vrbtn.paddingTop = "5px";
                 vrbtn.cornerRadius = 20;
-                advancedTexture.addControl(vrbtn); 
-                vrbtn.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_LEFT;
+                // advancedTexture.addControl(vrbtn); 
+                // vrbtn.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_LEFT;
                 vrbtn.onPointerUpObservable.add(function(){
                         const xr =  scene.createDefaultXRExperienceAsync({
                         // ask for an ar-session
