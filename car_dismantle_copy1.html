@@ -265,6 +265,7 @@
                     idlerun.start(true,1.0 , idlerun.from, idlerun.to, false);
                     // if (idlerun)   idlerun.start(true, 1.0, idlerun.from, idlerun.to, false);
                     // scene.beginAnimation(powerengine, idlerun.from, idlerun.to, true);
+                    
                 });
                 UiPanel.addControl(button);
                 // ..
@@ -470,7 +471,7 @@
                     panel.margin = 0.2;
                     panel.blockLayout = true;
                     manager.addControl(panel);
-                    panel.linkToTransformNode(anchor);
+                    // panel.linkToTransformNode(anchor);
                     panel.position.z = 2;
 
                     var button = new BABYLON.GUI.HolographicButton("button");
@@ -483,17 +484,13 @@
                         // if (assemble) scene.beginAnimation(powerengine, assemble.from, assemble.to, true);
                     });
 
-                    
-
-
-
+                
                         const xr =  scene.createDefaultXRExperienceAsync({
                         // ask for an ar-session
-                        
-
                     });
 
-            }); });
+            }); 
+        });
 
 
 
