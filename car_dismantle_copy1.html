@@ -112,7 +112,7 @@
            
             #renderCanvas {
                 width: 100%;
-                height: 80%;
+                height: 90%;
 
                 margin: 10px;
                 position:relative;
@@ -214,7 +214,8 @@
                         // powerengine.position.z=10;
                         camera.target = newMeshes[0];
                         newMeshes[0].scaling= new BABYLON.Vector3(20,20,20); 
-                        newMeshes[0]=new BABYLON.Vector3(-30,0,-30);
+                        // newMeshes[0]=new BABYLON.Vector3(-30,0,-30);
+                        newMeshes[0].position.z=250;
                         // piston_mesh[0].scaling= new BABYLON.Vector3(0.3,0.3,0.3);
                         // piston_mesh[0].position.X=10; 
 
@@ -254,6 +255,7 @@
                     console.log('play idle');
                     dismantle.stop();
                     assemble.stop();
+                    
                     idlerun.start(true,1.0 , idlerun.from, idlerun.to, false);
                     // if (idlerun)   idlerun.start(true, 1.0, idlerun.from, idlerun.to, false);
                     // scene.beginAnimation(powerengine, idlerun.from, idlerun.to, true);
@@ -291,7 +293,7 @@
                     button1.onPointerDownObservable.add(()=> {
                         dismantle.stop();
                         assemble.start(true,1.0, assemble.from,assemble.to,false);
-                        // assemble.loopAnimation=false;
+                        assemble.loopAnimation=false;
                         // if (assemble) scene.beginAnimation(powerengine, assemble.from, assemble.to, true);
                     });
                     UiPanel.addControl(button1);
@@ -309,8 +311,8 @@
                 // advancedTexture.addControl(arbtn); 
                 // arbtn.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_LEFT;
                 arbtn.onPointerUpObservable.add(function(){
-                        newMeshes[0].scaling= new BABYLON.Vector3(3,3,3); 
-                        newMeshes[0]=new BABYLON.Vector3(60,0,-30);
+                        // newMeshes[0].scaling= new BABYLON.Vector3(3,3,3); 
+                        // newMeshes[0]=new BABYLON.Vector3(60,0,-30);
                         const xr =  scene.createDefaultXRExperienceAsync({
                         // ask for an ar-session
                         uiOptions: {
