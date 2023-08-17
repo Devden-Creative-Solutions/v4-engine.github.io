@@ -465,43 +465,34 @@
                 // advancedTexture.addControl(vrbtn); 
                 // vrbtn.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_LEFT;
                 vrbtn.onPointerUpObservable.add(function(){
+                    var manager = new BABYLON.GUI.GUI3DManager(scene);
+                    var panel = new BABYLON.GUI.SpherePanel();
+                    panel.margin = 0.2;
+                    panel.blockLayout = true;
+                    manager.addControl(panel);
+                    panel.linkToTransformNode(anchor);
+                    panel.position.z = 2;
+
+                    var button = new BABYLON.GUI.HolographicButton("button");
+                    button.text = "3D Button";
+                    panel.addControl(button);
+                    button.onPointerDownObservable.add(()=> {
+                        dismantle.stop();
+                        assemble.start(true,1.0, assemble.from,assemble.to,false);
+                        assemble.loopAnimation=false;
+                        // if (assemble) scene.beginAnimation(powerengine, assemble.from, assemble.to, true);
+                    });
+
                     
 
-
-                    var ground = BABYLON.MeshBuilder.CreateGround("ground", {width: 1000, height: 1000}, scene);
-ground.collisionsEnabled = true;
-ground.checkCollisions = true;
 
 
                         const xr =  scene.createDefaultXRExperienceAsync({
                         // ask for an ar-session
-                        floorMeshes: [ground] 
+                        
 
                     });
 
-                    const teleportation = xrHelper.teleportation; 
-
-teleportation.parabolicRayEnabled = true; 
-teleportation.parabolicCheckRadius = 10; 
-
-const featureManager = xrHelper.baseExperience.featuresManager;
-
-const xrHandFeature = featureManager.enableFeature(BABYLON.WebXRFeatureName.HAND_TRACKING, "latest", {
-xrInput: xrHelper.input,
-});
-
-xrHandFeature.onHandAddedObservable.add((newHand) => {
-    let handPoint = newHand.getJointMesh("index-finger-tip");
-
-    scene.onBeforeRenderObservable.add(() => {
-        if (sphere.intersectsMesh(handPoint)) {
-
-            sphere.isVisible = false;
-
-        }
-    });
-
-                });
             }); });
 
 
