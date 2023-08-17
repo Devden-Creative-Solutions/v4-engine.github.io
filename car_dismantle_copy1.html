@@ -111,7 +111,7 @@
             }
            
             #renderCanvas {
-                width: 100%;
+                width: 90%;
                 height: 90%;
 
                 margin: 10px;
@@ -130,13 +130,19 @@
             }
             #shadow-button{
                 text-align: right;
+                position: relative;
+            }
+            #header-sticky{
+                position: relative;
+                text-align: center;
+
             }
             
             
         </style>
         <div >
             <div id="header-sticky"><br>
-                <p >V4 ENGINE VISUALIZATION</p></div>
+                <p >V8 ENGINE VISUALIZATION</p>
                     <div id="shadow-button">
                         <div class="shadow-button-container">
                         <img src="moon_icon.svg" width="30" height="40">
@@ -154,7 +160,7 @@
                         let button = document.getElementById('button');
                         
                     }
-                </script>
+                </script></div>
                 </div>
                 </div>
                 <div id="header">
@@ -215,7 +221,7 @@
                         camera.target = newMeshes[0];
                         newMeshes[0].scaling= new BABYLON.Vector3(20,20,20); 
                         // newMeshes[0]=new BABYLON.Vector3(-30,0,-30);
-                        newMeshes[0].position.x=250; 
+                        newMeshes[0].position.x=250;
                         // piston_mesh[0].scaling= new BABYLON.Vector3(0.3,0.3,0.3);
                         // piston_mesh[0].position.X=10; 
 
@@ -271,6 +277,7 @@
                 button1.onPointerDownObservable.add(()=> {
                     console.log('play walk');
                     assemble.stop();
+                    
                     dismantle.start(true, 1.0, dismantle.from, dismantle.to, false);
                     
                     // if (dismantle) {
@@ -465,7 +472,6 @@
 
                         const xr =  scene.createDefaultXRExperienceAsync({
                         // ask for an ar-session
-                        
                     });
 
                 });
