@@ -329,7 +329,8 @@
                 let b = model.newMeshes[0];//BABYLON.CylinderBuilder.CreateCylinder('cylinder', { diameterBottom: 0.2, diameterTop: 0.4, height: 0.5 });
                 b.rotationQuaternion = new BABYLON.Quaternion();
                 // b.isVisible = false;
-                shadowGenerator.addShadowCaster(b, true);
+                // shadowGenerator.addShadowCaster(b, true);
+
 
                 var skeleton = model.skeletons[0];
 
@@ -364,8 +365,8 @@
                         b.isVisible = true;
                         anchor.attachedNode = b.clone("mensch");
                         anchor.attachedNode.skeleton = skeleton.clone('skelet');
-                        shadowGenerator.addShadowCaster(anchor.attachedNode, true);
-                        scene.beginAnimation(anchor.attachedNode.skeleton, idlerun.from, idlerun.to, true);
+                        
+                        // scene.beginAnimation(anchor.attachedNode.skeleton, idlerun.from, idlerun.to, true);
                         b.isVisible = false;
                     })
 
@@ -424,7 +425,7 @@
                     plane.mesh.material = mat;
                     plane.mesh.rotationQuaternion = new BABYLON.Quaternion();
                     plane.transformationMatrix.decompose(plane.mesh.scaling, plane.mesh.rotationQuaternion, plane.mesh.position);
-                    plane.mesh.receiveShadows = true;
+                    // plane.mesh.receiveShadows = true;
                 })
 
                 xrPlanes.onPlaneRemovedObservable.add(plane => {
@@ -443,6 +444,7 @@
                         
 
                 });
+            
                 var advancedTexture = BABYLON.GUI.AdvancedDynamicTexture.CreateFullscreenUI("UI");
                 var vrbtn = BABYLON.GUI.Button.CreateSimpleButton("but1", "VR");
                 arvrpanel.addControl(vrbtn);
