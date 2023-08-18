@@ -325,6 +325,7 @@
                 // arbtn.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_LEFT;
                 arbtn.onPointerUpObservable.add(function(){
                     newMeshes[0].scaling=new BABYLON.Vector3(10,10,10);
+                    camera.target=newMeshes[0];
                     const xr =  scene.createDefaultXRExperienceAsync({
                         // ask for an ar-session
                         uiOptions: {
@@ -347,7 +348,7 @@
                 vrbtn.verticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP;
                 vrbtn.onPointerUpObservable.add(function(){
                     
-                     
+                camera.target=newMeshes[0];
                 newMeshes[0].scaling= new BABYLON.Vector3(10,10,10);
                 var ground = BABYLON.MeshBuilder.CreateGround("ground", {width: 1000, height: 1000}, scene);
                 ground.isVisible=false;
