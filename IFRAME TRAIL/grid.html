@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0", shrink-to-fit="yes">
+
+        <title>DIV functions- index.html</title>
+
+        <!-- Babylon.js -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.6.2/dat.gui.min.js"></script>
+        <script src="https://assets.babylonjs.com/generated/Assets.js"></script>
+        <script src="https://cdn.babylonjs.com/recast.js"></script>
+        <script src="https://cdn.babylonjs.com/ammo.js"></script>
+        <script src="https://cdn.babylonjs.com/havok/HavokPhysics_umd.js"></script>
+        <script src="https://cdn.babylonjs.com/cannon.js"></script>
+        <script src="https://cdn.babylonjs.com/Oimo.js"></script>
+        <script src="https://cdn.babylonjs.com/earcut.min.js"></script>
+        <script src="https://cdn.babylonjs.com/babylon.js"></script>
+        <script src="https://cdn.babylonjs.com/materialsLibrary/babylonjs.materials.min.js"></script>
+        <script src="https://cdn.babylonjs.com/proceduralTexturesLibrary/babylonjs.proceduralTextures.min.js"></script>
+        <script src="https://cdn.babylonjs.com/postProcessesLibrary/babylonjs.postProcess.min.js"></script>
+        <script src="https://cdn.babylonjs.com/loaders/babylonjs.loaders.js"></script>
+        <script src="https://cdn.babylonjs.com/serializers/babylonjs.serializers.min.js"></script>
+        <script src="https://cdn.babylonjs.com/gui/babylon.gui.min.js"></script>
+        <script src="https://cdn.babylonjs.com/inspector/babylon.inspector.bundle.js"></script>
+        
+        <style>
+            html, body {
+                overflow: hidden;
+                height: 100%;
+                width: 100%;
+                margin: 0;
+                padding: 0;
+            }
+
+            #renderCanvas {
+                width: 100%;
+                height: 100%;
+                touch-action: none;
+                
+            }
+            
+            #canvasZone {
+                width: 100%;
+                height: 100%;
+            }
+
+           
+           
+            iframe{
+                position: absolute;
+                /* max-width: 100%;
+                max-height: 100%; */
+                width: 17.2%;
+                height: 37.4%; 
+                resize:both;
+                
+
+            }
+            #embeddedIframe1{
+                /* margin-top: 170px; */
+                margin-top: 8.0%; 
+                position: fixed;
+                margin-left: 36.5%;
+                /* margin-left: 745px; */
+                margin-bottom: 100px;
+                resize: both;
+                     
+            }
+            #embeddedIframe2{
+                margin-top:28.6%;
+                margin-left: 36.5%; 
+                /* margin-top:610px ; */
+                /* margin-bottom: 40%; */
+                  
+                /* resize: both; */
+      
+            }
+            #embeddedIframe3{
+                margin-top: 8.05%;
+                /* margin-top: 170px; */
+                margin-bottom: 100px;
+                resize: both;
+                margin-left: 56.5%;
+                /* resize: both; */
+ 
+
+            }
+            #embeddedIframe4{
+                margin-top: 28.6%;
+                margin-left: 56.5%;
+
+                /* resize: both; */
+     
+            }
+            #embeddedIframe5{
+                margin-top:8.1%;
+                /* margin-top: 170px; */
+                
+                margin-left: 76.5%; 
+                margin-bottom: 100px;
+                resize: both;   
+                /* resize: both; */
+    
+            }
+            #embeddedIframe6{
+                margin-top: 28.6%;
+                margin-left: 76.5%;                
+                /* resize: both; */
+
+            }
+            
+                #gridoverlay{
+                    width: auto;
+                    height: min-content;
+                }
+        </style>
+    </head>
+<body>
+    
+    <div id="canvasZone">  
+        
+        <!-- <div id="iframeOverlay" > -->
+            <!-- <div id="grid-container"> -->
+            <div id="gridoverlay">
+            <div class="grid-iframes"> <iframe  id="embeddedIframe1" ></iframe></div>
+            <div class="grid-iframes"> <iframe  id="embeddedIframe2" ></iframe></div>
+            <div class="grid-iframes"> <iframe  id="embeddedIframe3" ></iframe></div>
+            <div class="grid-iframes"> <iframe  id="embeddedIframe4" ></iframe></div>
+            <div class="grid-iframes"> <iframe  id="embeddedIframe5"></iframe></div>
+            <div class="grid-iframes"> <iframe  id="embeddedIframe6"></iframe></div>
+            </div>
+        <!-- </div> -->
+        <canvas id="renderCanvas"></canvas>
+        
+           </div>
+    <script>
+        
+        var canvas = document.getElementById("renderCanvas");
+            
+            var startRenderLoop = function (engine, canvas) {
+                engine.runRenderLoop(function () {  
+                    if (sceneToRender && sceneToRender.activeCamera) {
+                        sceneToRender.render();
+                    }
+                    engine.resize;
+                    // scene.render;
+                });
+            }
+    
+            var engine = null;
+            var scene = null;
+            var sceneToRender = null;
+            var createDefaultEngine = function() { return new BABYLON.Engine(canvas, true, { preserveDrawingBuffer: true, stencil: true,  disableWebGL2Support: false}); };
+
+            var createScene =  function () {
+        // This creates a basic Babylon Scene object (non-mesh)
+        var scene = new BABYLON.Scene(engine);
+        scene.clearColor = new BABYLON.Color4(0, 0, 0, 0);
+        var camera = new BABYLON.ArcRotateCamera("camera1", 0,  Math.PI / 2, 10, BABYLON.Vector3.Zero(), scene);
+
+        camera.attachControl(canvas, false);
+    
+        var light = new BABYLON.HemisphericLight("light", new BABYLON.Vector3(0, 1, 0), scene);
+        light.intensity = 1;
+
+            canvas.style.backgroundImage = "url('bg1.jpg')";
+            canvas.style.backgroundPosition="center";
+            canvas.style.backgroundColor="black";
+            canvas.style.backgroundSize = "contain"
+            canvas.style.backgroundAttachment="fixed"
+            canvas.style.backgroundRepeat="no-repeat"
+            // function activateframes(){
+                // var iframeOverlay = document.getElementById("iframeOverlay");
+                // // let iframe = document.getElementById("embeddedIframe1","embeddedIframe2");
+                // // iframe.syle.width="17 %"
+                // // iframe.style.height="37.4%"
+                 console.log("canvas height and width "+ canvas.style.backgroundPositionY  )
+                // iframeOverlay.style.display = "flex";
+                iframe1()
+                iframe2()
+                iframe3()
+                iframe4()
+                iframe5()
+                iframe6()
+
+        function iframe1(){
+            let iframe = document.getElementById("embeddedIframe1");
+            iframe.style.backgroundPosition="center";
+            console.log("iframe1 height and width "+ iframe.style.backgroundPositionY  )
+            iframe.style.height=window.innerHeight;     
+            iframe.src = "https://sketchfab.com/models/f39dc69dbbfe49c68045bec2c16e03ba/embed?autostart=0&amp;ui_controls=1&amp;ui_infos=1&amp;ui_inspector=1&amp;ui_stop=1&amp;ui_watermark=1&amp;ui_watermark_link=1"; 
+           
+        }
+        function iframe2(){
+            let iframe = document.getElementById("embeddedIframe2");
+            
+            iframe.src = "https://sketchfab.com/models/b824332212fc48e2adfff4eab46d9485/embed?autostart=0&amp;ui_controls=1&amp;ui_infos=1&amp;ui_inspector=1&amp;ui_stop=1&amp;ui_watermark=1&amp;ui_watermark_link=1 "; 
+           
+        }
+        function iframe3(){
+            let iframe = document.getElementById("embeddedIframe3");
+                        
+            iframe.src = "https://sketchfab.com/models/b824332212fc48e2adfff4eab46d9485/embed?autostart=0&amp;ui_controls=1&amp;ui_infos=1&amp;ui_inspector=1&amp;ui_stop=1&amp;ui_watermark=1&amp;ui_watermark_link=1 "; 
+       
+        }
+        function iframe4(){
+            let iframe = document.getElementById("embeddedIframe4");
+                        
+            iframe.src = "https://sketchfab.com/models/f39dc69dbbfe49c68045bec2c16e03ba/embed?autostart=0&amp;ui_controls=1&amp;ui_infos=1&amp;ui_inspector=1&amp;ui_stop=1&amp;ui_watermark=1&amp;ui_watermark_link=1"; 
+          
+        }
+        function iframe5(){
+            let iframe = document.getElementById("embeddedIframe5");
+                        
+            iframe.src = "https://sketchfab.com/models/f39dc69dbbfe49c68045bec2c16e03ba/embed?autostart=0&amp;ui_controls=1&amp;ui_infos=1&amp;ui_inspector=1&amp;ui_stop=1&amp;ui_watermark=1&amp;ui_watermark_link=1"; 
+           
+        }
+        function iframe6(){
+            let iframe = document.getElementById("embeddedIframe6");
+                        
+            iframe.src = "https://sketchfab.com/models/b824332212fc48e2adfff4eab46d9485/embed?autostart=0&amp;ui_controls=1&amp;ui_infos=1&amp;ui_inspector=1&amp;ui_stop=1&amp;ui_watermark=1&amp;ui_watermark_link=1 "; 
+           
+        }
+        // alert(window.innerHeight+" inner height   " + window.innerWidth+ " innerwidth")
+        // alert(iframe.width)
+        return scene;
+        console.log(canvas.style.backgroundSize+" inner width")
+
+        scene.onBeforeRenderObservable.add(() => {
+
+            engine.resize();
+            var iframe = document.getElementById("embeddedIframe1");
+            var iframe=document.getElementById("embeddedIframe2")
+            iframe.style.width = window.innerWidth;
+            iframe.style.height=window.innerHeight;
+            
+        });
+
+
+
+
+        };
+                window.initFunction = async function() {
+                    
+                    
+                    
+                    var asyncEngineCreation = async function() {
+                        try {
+                        return createDefaultEngine();
+                        } catch(e) {
+                        console.log("the available createEngine function failed. Creating the default engine instead");
+                        return createDefaultEngine();
+                        }
+                    }
+
+                    window.engine = await asyncEngineCreation();
+        if (!engine) throw 'engine should not be null.';
+        startRenderLoop(engine, canvas);
+        
+        
+        window.scene = createScene();};
+        initFunction().then(() => {sceneToRender = scene                    
+        });
+        
+        // Resize
+        window.addEventListener("resize", function () {
+
+            engine.resize();
+            // console.log(iframe)
+            // var iframe = document.getElementById("embeddedIframe1");
+            // var iframe=document.getElementById("embeddedIframe2")
+            // iframe.style.width = window.innerWidth;
+            // iframe.style.height=window.innerHeight;
+            // console.log(window.innerHeight)
+            
+            // console.log(window.innerWidth+" inner width")
+        });
+        // window.addEventListener("resize", function() {
+        //     var iframe = document.getElementById("my-iframe");
+        //     iframe.style.width = window.innerWidth;
+        //     });
+    </script>
+    
+</body>
+</html>
